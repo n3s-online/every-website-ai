@@ -18,6 +18,9 @@ const envSchema = z.object({
     .string()
     .min(1, "UPSTASH_REDIS_REST_TOKEN is required"),
 
+  // Discord Webhook Configuration
+  DISCORD_WEBHOOK_URL: z.string().min(1, "DISCORD_WEBHOOK_URL is required"),
+
   // Next.js Environment
   NODE_ENV: z
     .enum(["development", "production", "test"])

@@ -2,6 +2,7 @@ import { generateWebpageHtml } from "@/lib/ai";
 import { fetchHtmlFromS3, uploadHtmlToS3 } from "@/lib/s3";
 import { checkRateLimit } from "@/lib/redis";
 import { getUserIP } from "@/lib/ip";
+import { discord } from "@/lib/discord";
 import { notFound } from "next/navigation";
 import InappropriateContent from "@/components/inappropriate-content";
 import RateLimitExceeded from "@/components/rate-limit-exceeded";
@@ -19,6 +20,7 @@ export default async function SlugPage({ params }: PageProps) {
   }
 
   let htmlContent: string;
+  const userIP = await getUserIP();
 
   try {
     // First, try to fetch existing HTML from S3
@@ -26,9 +28,13 @@ export default async function SlugPage({ params }: PageProps) {
 
     if (existingHtml) {
       htmlContent = existingHtml;
+
+      // Notify Discord that page was loaded from cache
+      discord.notifyPageLoaded(slug, userIP).catch((error) => {
+        console.error("Failed to send Discord notification:", error);
+      });
     } else {
       // Check rate limits before generating new content
-      const userIP = await getUserIP();
       const rateLimitResult = await checkRateLimit(userIP);
 
       if (!rateLimitResult.allowed) {
@@ -57,9 +63,20 @@ export default async function SlugPage({ params }: PageProps) {
         console.error("Failed to cache webpage to S3:", uploadError);
         // Continue anyway, we have the HTML content
       }
+
+      // Notify Discord that a new page was generated
+      discord.notifyPageGenerated(slug, userIP).catch((error) => {
+        console.error("Failed to send Discord notification:", error);
+      });
     }
   } catch (error) {
     console.error("Error processing webpage:", error);
+
+    // Notify Discord about the error
+    discord.notifyError(slug, userIP, String(error)).catch((discordError) => {
+      console.error("Failed to send Discord error notification:", discordError);
+    });
+
     throw new Error("Failed to generate webpage. Please try again later.");
   }
 
