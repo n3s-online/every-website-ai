@@ -38,7 +38,7 @@ export default async function SlugPage({ params }: PageProps) {
     }
   } catch (error) {
     console.error("Error processing webpage:", error);
-    notFound();
+    throw new Error("Failed to generate webpage. Please try again later.");
   }
 
   // Return the HTML content directly
