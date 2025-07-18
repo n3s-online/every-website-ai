@@ -11,6 +11,9 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+// Revalidate every 24 hours (86400 seconds)
+export const revalidate = 86400;
+
 export default async function SlugPage({ params }: PageProps) {
   const { slug } = await params;
 

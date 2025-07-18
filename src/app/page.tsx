@@ -3,6 +3,9 @@ import HomepageForm from "@/components/homepage-form";
 import RecentPages from "@/components/recent-pages";
 import SupportCreator from "@/components/support-creator";
 
+// Revalidate every 10 minutes (600 seconds)
+export const revalidate = 600;
+
 export default async function Home() {
   // Fetch recent pages from S3
   const recentPages = await getRecentPages(12);
