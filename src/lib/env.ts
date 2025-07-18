@@ -10,6 +10,14 @@ const envSchema = z.object({
   // Anthropic Claude Configuration
   ANTHROPIC_API_KEY: z.string().min(1, "ANTHROPIC_API_KEY is required"),
 
+  // Upstash Redis Configuration
+  UPSTASH_REDIS_REST_URL: z
+    .string()
+    .min(1, "UPSTASH_REDIS_REST_URL is required"),
+  UPSTASH_REDIS_REST_TOKEN: z
+    .string()
+    .min(1, "UPSTASH_REDIS_REST_TOKEN is required"),
+
   // Next.js Environment
   NODE_ENV: z
     .enum(["development", "production", "test"])

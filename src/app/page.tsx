@@ -147,7 +147,7 @@ export default function Home() {
                 <span className="text-blue-600 font-bold text-lg">3</span>
               </div>
               <h3 className="font-semibold text-gray-800 mb-2 text-base sm:text-lg">
-                That's it!
+                That&apos;s it!
               </h3>
               <p className="text-gray-600 text-sm sm:text-base px-2">
                 Your custom webpage is ready to use and share

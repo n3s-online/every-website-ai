@@ -1,7 +1,10 @@
 import { generateWebpageHtml } from "@/lib/ai";
 import { fetchHtmlFromS3, uploadHtmlToS3 } from "@/lib/s3";
+import { checkRateLimit } from "@/lib/redis";
+import { getUserIP } from "@/lib/ip";
 import { notFound } from "next/navigation";
 import InappropriateContent from "@/components/inappropriate-content";
+import RateLimitExceeded from "@/components/rate-limit-exceeded";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -24,8 +27,26 @@ export default async function SlugPage({ params }: PageProps) {
     if (existingHtml) {
       htmlContent = existingHtml;
     } else {
+      // Check rate limits before generating new content
+      const userIP = await getUserIP();
+      const rateLimitResult = await checkRateLimit(userIP);
+
+      if (!rateLimitResult.allowed) {
+        // Rate limit exceeded, show appropriate message
+        return (
+          <RateLimitExceeded
+            type={rateLimitResult.reason === "user_limit" ? "user" : "global"}
+            resetTime={
+              rateLimitResult.reason === "user_limit"
+                ? rateLimitResult.userResetTime
+                : rateLimitResult.globalResetTime
+            }
+          />
+        );
+      }
+
       // Generate new HTML using AI
-      console.log(`Generating new webpage for slug: ${slug}`);
+      console.log(`Generating new webpage for slug: ${slug} (User: ${userIP})`);
       htmlContent = await generateWebpageHtml(slug);
 
       // Upload to S3 for caching (including inappropriate content responses)
