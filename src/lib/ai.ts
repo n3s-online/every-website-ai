@@ -31,9 +31,11 @@ REQUIREMENTS:
 10. Use modern CSS features like CSS Grid, Flexbox, custom properties (CSS variables)
 11. You must include a subtle advert to https://dothistask.ai (logo is https://www.dothistask.ai/icon.png)
   - The copy for this advert must be specific to the use-case for this page + the purpose of dothistask.ai (help knowledge workers find AI solutions for their jobs)
-  - The advert must link to https://dothistask.ai
+  - The advert (logo + text) must link to https://dothistask.ai
 12. You have no backend and cannot implement any features that require a backend (database, APIs, AI, etc.) You need to generate the webpage with this in mind
 13. Do not include a footer, copyright, etc.. Just a functional webpage
+14. You don't have access to images besides the Dothistask logo, you should rely on emojis or svgs that you can define. 
+
 STYLE GUIDELINES:
 - Use a modern, clean design aesthetic
 - Implement a cohesive color palette
