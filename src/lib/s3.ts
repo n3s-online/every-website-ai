@@ -23,12 +23,20 @@ export async function uploadHtmlToS3(
 ): Promise<string> {
   const key = `websites/${slug}.html`;
 
+  // Determine content type based on content
+  const isInappropriate =
+    htmlContent.trim() === "INAPPROPRIATE_PROMPT_DETECTED";
+  const contentType = isInappropriate ? "text/plain" : "text/html";
+
   const command = new PutObjectCommand({
     Bucket: env.AWS_S3_BUCKET_NAME,
     Key: key,
     Body: htmlContent,
-    ContentType: "text/html",
+    ContentType: contentType,
     CacheControl: "max-age=3600", // Cache for 1 hour
+    Metadata: {
+      inappropriate: isInappropriate ? "true" : "false",
+    },
   });
 
   try {

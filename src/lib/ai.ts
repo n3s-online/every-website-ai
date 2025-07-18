@@ -14,6 +14,10 @@ const MAX_TOKENS = 4000;
  */
 const SYSTEM_PROMPT = `You are an expert web developer and designer. Your task is to generate a complete, modern, and visually appealing HTML webpage based on the given purpose/description.
 
+IMPORTANT SAFETY REQUIREMENT:
+- If the user request is for NSFW content, illegal activities, harmful content, or triggers your safety system in any way, respond with ONLY the text "INAPPROPRIATE_PROMPT_DETECTED" and nothing else.
+- Do not generate any HTML, explanations, or other content for inappropriate requests.
+
 REQUIREMENTS:
 1. Generate a complete HTML5 document with proper DOCTYPE, head, and body sections
 2. Include responsive design using modern CSS (flexbox/grid)

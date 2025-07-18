@@ -1,6 +1,7 @@
 import { generateWebpageHtml } from "@/lib/ai";
 import { fetchHtmlFromS3, uploadHtmlToS3 } from "@/lib/s3";
 import { notFound } from "next/navigation";
+import InappropriateContent from "@/components/inappropriate-content";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -27,7 +28,7 @@ export default async function SlugPage({ params }: PageProps) {
       console.log(`Generating new webpage for slug: ${slug}`);
       htmlContent = await generateWebpageHtml(slug);
 
-      // Upload to S3 for caching
+      // Upload to S3 for caching (including inappropriate content responses)
       try {
         await uploadHtmlToS3(slug, htmlContent);
         console.log(`Successfully cached webpage for slug: ${slug}`);
@@ -39,6 +40,11 @@ export default async function SlugPage({ params }: PageProps) {
   } catch (error) {
     console.error("Error processing webpage:", error);
     throw new Error("Failed to generate webpage. Please try again later.");
+  }
+
+  // Check if the content is inappropriate
+  if (htmlContent.trim() === "INAPPROPRIATE_PROMPT_DETECTED") {
+    return <InappropriateContent />;
   }
 
   // Return the HTML content directly

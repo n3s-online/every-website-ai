@@ -2,14 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 
-export default function NotFound() {
+export default function InappropriateContent() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-8">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-yellow-50 to-orange-100 p-8">
       <div className="text-center space-y-6 max-w-md">
-        {/* 404 icon */}
-        <div className="w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center">
+        {/* Warning icon */}
+        <div className="w-16 h-16 mx-auto bg-yellow-100 rounded-full flex items-center justify-center">
           <svg
-            className="w-8 h-8 text-gray-600"
+            className="w-8 h-8 text-yellow-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -18,21 +18,35 @@ export default function NotFound() {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-1.009-5.824-2.562M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
             />
           </svg>
         </div>
 
-        {/* Error message */}
+        {/* Warning message */}
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold text-gray-800">Page Not Found</h1>
+          <h1 className="text-2xl font-bold text-gray-800">
+            Content Not Available
+          </h1>
           <p className="text-gray-600">
-            The page you&apos;re looking for doesn&apos;t exist or the slug
-            contains invalid characters.
+            This request cannot be processed as it may contain inappropriate
+            content or violates our content policy.
           </p>
-          <p className="text-sm text-gray-500">
-            Try using only letters, numbers, hyphens, and underscores.
-          </p>
+        </div>
+
+        {/* Guidelines */}
+        <div className="bg-white/50 rounded-lg p-4 text-left">
+          <h3 className="font-semibold text-gray-800 mb-2">
+            Please try requests for:
+          </h3>
+          <ul className="text-sm text-gray-600 space-y-1">
+            <li>• Business websites</li>
+            <li>• Portfolio pages</li>
+            <li>• Landing pages</li>
+            <li>• Educational content</li>
+            <li>• Creative projects</li>
+            <li>• Tools and utilities</li>
+          </ul>
         </div>
 
         {/* Action buttons */}
@@ -55,7 +69,9 @@ export default function NotFound() {
 
           {/* Contact info */}
           <div className="pt-4 border-t border-gray-200">
-            <p className="text-sm text-gray-500 mb-3">Need help? Reach out:</p>
+            <p className="text-sm text-gray-500 mb-3">
+              Questions about our content policy?
+            </p>
             <a
               href="https://twitter.com/n3sonline"
               target="_blank"

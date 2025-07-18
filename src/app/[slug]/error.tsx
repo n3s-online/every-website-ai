@@ -7,7 +7,7 @@ interface ErrorPageProps {
   reset: () => void;
 }
 
-export default function ErrorPage({ error, reset }: ErrorPageProps) {
+export default function ErrorPage({ reset }: ErrorPageProps) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-red-50 to-orange-100 p-8">
       <div className="text-center space-y-6 max-w-md">
@@ -34,7 +34,8 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
             Oops! Something went wrong
           </h1>
           <p className="text-gray-600">
-            We couldn't generate your webpage right now. This might be a temporary issue.
+            We couldn&apos;t generate your webpage right now. This might be a
+            temporary issue.
           </p>
         </div>
 
@@ -46,7 +47,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
             </Button>
             <Button
               variant="outline"
-              onClick={() => window.location.href = "/"}
+              onClick={() => (window.location.href = "/")}
               className="px-6"
             >
               Go Home
