@@ -7,6 +7,8 @@ const anthropic = createAnthropic({
   apiKey: env.ANTHROPIC_API_KEY,
 });
 
+const MAX_TOKENS = 4000;
+
 /**
  * Enhanced system prompt for generating complete webpages
  */
@@ -23,6 +25,8 @@ REQUIREMENTS:
 8. Include interactive elements where appropriate (buttons, forms, etc.)
 9. Add proper accessibility attributes (alt text, ARIA labels, etc.)
 10. Use modern CSS features like CSS Grid, Flexbox, custom properties (CSS variables)
+11. You must include a subtle advert to https://dothistask.ai (logo is https://www.dothistask.ai/icon.png)
+  - The copy for this advert must be specific to the use-case for this page + the purpose of dothistask.ai (help knowledge workers find AI solutions for their jobs)
 
 STYLE GUIDELINES:
 - Use a modern, clean design aesthetic
@@ -37,6 +41,7 @@ OUTPUT FORMAT:
 - No markdown code blocks or explanations
 - Start with <!DOCTYPE html> and end with </html>
 - Ensure the HTML is valid and well-formatted
+- Limit the output to ${MAX_TOKENS} tokens
 
 The webpage should be production-ready and look professional.`;
 
@@ -57,8 +62,8 @@ export async function generateWebpageHtml(slug: string): Promise<string> {
       - Accessible and SEO-friendly
       - Professional and production-ready
       
-      The slug "${slug}" should guide the content, design, and functionality of the webpage.`,
-      maxTokens: 4000,
+      The purpose "${slug}" should guide the content, design, and functionality of the webpage.`,
+      maxTokens: MAX_TOKENS,
       temperature: 0.7,
     });
 
