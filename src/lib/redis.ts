@@ -130,8 +130,8 @@ export async function getRateLimitStatus(
       client.ttl(globalKey),
     ]);
 
-    const userCountNum = parseInt(userCount || "0");
-    const globalCountNum = parseInt(globalCount || "0");
+    const userCountNum = parseInt(String(userCount || "0"));
+    const globalCountNum = parseInt(String(globalCount || "0"));
 
     const userResetTime = userTtl > 0 ? now + userTtl : 0;
     const globalResetTime = globalTtl > 0 ? now + globalTtl : 0;
