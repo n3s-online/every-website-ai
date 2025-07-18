@@ -2,6 +2,7 @@ import {
   S3Client,
   PutObjectCommand,
   GetObjectCommand,
+  ListObjectsV2Command,
 } from "@aws-sdk/client-s3";
 import { env } from "./env";
 
@@ -84,5 +85,66 @@ export async function htmlExistsInS3(slug: string): Promise<boolean> {
     return html !== null;
   } catch {
     return false;
+  }
+}
+
+export interface RecentPage {
+  slug: string;
+  lastModified: Date;
+  title: string;
+}
+
+/**
+ * Get the most recently generated pages from S3
+ */
+export async function getRecentPages(limit: number = 5): Promise<RecentPage[]> {
+  const command = new ListObjectsV2Command({
+    Bucket: env.AWS_S3_BUCKET_NAME,
+    Prefix: "websites/",
+    MaxKeys: 50, // Get more than we need to filter out inappropriate content
+  });
+
+  try {
+    const response = await s3Client.send(command);
+
+    if (!response.Contents) {
+      return [];
+    }
+
+    // Filter and sort pages
+    const pages = response.Contents.filter((object) => {
+      // Filter out inappropriate content and ensure we have valid objects
+      return (
+        object.Key &&
+        object.Key.endsWith(".html") &&
+        object.LastModified &&
+        object.Size &&
+        object.Size > 100 // Filter out very small files (likely inappropriate content)
+      );
+    })
+      .sort((a, b) => {
+        // Sort by last modified date, newest first
+        const dateA = a.LastModified?.getTime() || 0;
+        const dateB = b.LastModified?.getTime() || 0;
+        return dateB - dateA;
+      })
+      .slice(0, limit)
+      .map((object) => {
+        const slug = object.Key!.replace("websites/", "").replace(".html", "");
+        const title = slug
+          .replace(/[-_]/g, " ")
+          .replace(/\b\w/g, (l) => l.toUpperCase());
+
+        return {
+          slug,
+          lastModified: object.LastModified!,
+          title,
+        };
+      });
+
+    return pages;
+  } catch (error) {
+    console.error("Error fetching recent pages from S3:", error);
+    return [];
   }
 }
