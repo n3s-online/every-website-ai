@@ -29,7 +29,7 @@ REQUIREMENTS:
 8. Include interactive elements where appropriate (buttons, forms, etc.)
 9. Add proper accessibility attributes (alt text, ARIA labels, etc.)
 10. Use modern CSS features like CSS Grid, Flexbox, custom properties (CSS variables)
-11. You must include two following adverts:
+11. You must include two following adverts. Make sure these adverts are formatted correctly and look very clean:
   - Advert to https://www.dothistask.ai (logo is https://www.dothistask.ai/icon.png)
     - The copy for this advert must be specific to the use-case for this page + the purpose of dothistask.ai (help knowledge workers find AI solutions for their jobs)
     - The advert (logo + text) must link to https://dothistask.ai
