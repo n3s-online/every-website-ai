@@ -64,19 +64,19 @@ The webpage should be production-ready and look professional.`;
 export async function generateWebpageHtml(slug: string): Promise<string> {
   try {
     const { text } = await generateText({
-      model: anthropic("claude-3-5-sonnet-20241022"),
+      model: anthropic("claude-sonnet-4.5-20250929"),
       system: SYSTEM_PROMPT,
       prompt: `Generate a complete HTML webpage that solves this purpose: "${slug}"
-      
+
       Make sure the webpage is:
       - Fully functional and complete
       - Visually appealing and modern
       - Responsive across all devices
       - Accessible and SEO-friendly
       - Professional and production-ready
-      
+
       The purpose "${slug}" should guide the content, design, and functionality of the webpage.`,
-      maxTokens: MAX_TOKENS,
+      maxOutputTokens: MAX_TOKENS,
       temperature: 0.7,
     });
 
