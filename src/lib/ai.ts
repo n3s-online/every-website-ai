@@ -7,7 +7,7 @@ const anthropic = createAnthropic({
   apiKey: env.ANTHROPIC_API_KEY,
 });
 
-const MAX_TOKENS = 5000;
+const MAX_TOKENS = 6500;
 
 /**
  * Enhanced system prompt for generating complete webpages
@@ -64,7 +64,7 @@ The webpage should be production-ready and look professional.`;
 export async function generateWebpageHtml(slug: string): Promise<string> {
   try {
     const { text } = await generateText({
-      model: anthropic("claude-sonnet-4.5-20250929"),
+      model: anthropic("claude-sonnet-4-5"),
       system: SYSTEM_PROMPT,
       prompt: `Generate a complete HTML webpage that solves this purpose: "${slug}"
 
