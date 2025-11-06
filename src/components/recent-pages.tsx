@@ -56,7 +56,7 @@ export default function RecentPages({ pages }: RecentPagesProps) {
 
                 <div className="mt-3 pt-3 border-t border-gray-100">
                   <p className="text-xs text-gray-600 font-mono break-all">
-                    everywebsite.ai/{page.slug}
+                    everywebsite.app/{page.slug}
                   </p>
                 </div>
               </div>
