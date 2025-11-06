@@ -21,6 +21,46 @@ const GLOBAL_RATE_LIMIT = 100; // 100 pages per day globally
 const USER_WINDOW = 60 * 60; // 1 hour in seconds
 const GLOBAL_WINDOW = 24 * 60 * 60; // 24 hours in seconds
 
+/**
+ * Lua script for atomic rate limit check-and-increment
+ * This prevents race conditions by making the check and increment atomic
+ *
+ * Returns: [allowed (0 or 1), count, ttl]
+ * - If over limit: [0, current_count, 0]
+ * - If allowed: [1, new_count, ttl]
+ */
+const RATE_LIMIT_LUA_SCRIPT = `
+local key = KEYS[1]
+local limit = tonumber(ARGV[1])
+local window = tonumber(ARGV[2])
+
+local count = redis.call('GET', key)
+if count == false then
+  count = 0
+else
+  count = tonumber(count)
+end
+
+-- Check if over limit BEFORE incrementing
+if count >= limit then
+  local ttl = redis.call('TTL', key)
+  return {0, count, ttl}
+end
+
+-- Increment since we're under the limit
+local newCount = redis.call('INCR', key)
+
+-- Set expiry if first request
+if newCount == 1 then
+  redis.call('EXPIRE', key, window)
+end
+
+-- Get TTL for reset time
+local ttl = redis.call('TTL', key)
+
+return {1, newCount, ttl}
+`;
+
 export interface RateLimitResult {
   allowed: boolean;
   reason?: "user_limit" | "global_limit";
@@ -32,6 +72,7 @@ export interface RateLimitResult {
 
 /**
  * Check if a user can generate a new page based on rate limits
+ * Uses Lua scripts for atomic check-and-increment to prevent race conditions
  * @param userIp - User's IP address (used as identifier)
  * @returns Promise<RateLimitResult>
  */
@@ -48,18 +89,18 @@ export async function checkRateLimit(userIp: string): Promise<RateLimitResult> {
     const userKey = `ewa:user_rate_limit:${userIp}`;
     const globalKey = "ewa:global_rate_limit";
 
-    // Check user rate limit
-    const userCount = await client.incr(userKey);
+    // Check user rate limit using atomic Lua script
+    const userResult = await client.eval(
+      RATE_LIMIT_LUA_SCRIPT,
+      [userKey],
+      [USER_RATE_LIMIT, USER_WINDOW]
+    ) as [number, number, number];
 
-    if (userCount === 1) {
-      // First request from this user, set expiration
-      await client.expire(userKey, USER_WINDOW);
-    }
+    const [userAllowed, userCount, userTtl] = userResult;
+    const userResetTime = userTtl > 0 ? now + userTtl : now + USER_WINDOW;
 
-    const userTtl = await client.ttl(userKey);
-    const userResetTime = now + userTtl;
-
-    if (userCount > USER_RATE_LIMIT) {
+    // If user limit exceeded, return immediately (counter was NOT incremented)
+    if (userAllowed === 0) {
       return {
         allowed: false,
         reason: "user_limit",
@@ -68,18 +109,18 @@ export async function checkRateLimit(userIp: string): Promise<RateLimitResult> {
       };
     }
 
-    // Check global rate limit
-    const globalCount = await client.incr(globalKey);
+    // Check global rate limit using atomic Lua script
+    const globalResult = await client.eval(
+      RATE_LIMIT_LUA_SCRIPT,
+      [globalKey],
+      [GLOBAL_RATE_LIMIT, GLOBAL_WINDOW]
+    ) as [number, number, number];
 
-    if (globalCount === 1) {
-      // First request of the day, set expiration
-      await client.expire(globalKey, GLOBAL_WINDOW);
-    }
+    const [globalAllowed, globalCount, globalTtl] = globalResult;
+    const globalResetTime = globalTtl > 0 ? now + globalTtl : now + GLOBAL_WINDOW;
 
-    const globalTtl = await client.ttl(globalKey);
-    const globalResetTime = now + globalTtl;
-
-    if (globalCount > GLOBAL_RATE_LIMIT) {
+    // If global limit exceeded, rollback user counter
+    if (globalAllowed === 0) {
       // Decrement user count since we're not allowing this request
       await client.decr(userKey);
 
@@ -91,6 +132,7 @@ export async function checkRateLimit(userIp: string): Promise<RateLimitResult> {
       };
     }
 
+    // Both checks passed
     return {
       allowed: true,
       userCount,
@@ -120,8 +162,8 @@ export async function getRateLimitStatus(
 
   try {
     const now = Math.floor(Date.now() / 1000);
-    const userKey = `user_rate_limit:${userIp}`;
-    const globalKey = "global_rate_limit";
+    const userKey = `ewa:user_rate_limit:${userIp}`;
+    const globalKey = "ewa:global_rate_limit";
 
     const [userCount, userTtl, globalCount, globalTtl] = await Promise.all([
       client.get(userKey),
@@ -177,10 +219,10 @@ export async function resetRateLimits(userIp?: string): Promise<void> {
 
   try {
     if (userIp) {
-      await client.del(`user_rate_limit:${userIp}`);
+      await client.del(`ewa:user_rate_limit:${userIp}`);
     } else {
       // Reset global limit
-      await client.del("global_rate_limit");
+      await client.del("ewa:global_rate_limit");
     }
   } catch (error) {
     console.error("Failed to reset Upstash Redis rate limits:", error);
