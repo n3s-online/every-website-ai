@@ -51,7 +51,7 @@ export default function HomepageForm() {
                 id="webpage-input"
                 type="text"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={(e) => setInput(e.target.value.replace(/\s+/g, "-"))}
                 placeholder="calculator"
                 className="flex-1 pr-4 py-3 text-sm sm:text-lg border-0 outline-none font-mono bg-transparent"
                 disabled={isLoading}
