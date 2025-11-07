@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <PlausibleProvider
-          domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || "localhost"}
+          domain="everywebsite.app"
           customDomain="https://plausible-analytics-ce-production-d9c9.up.railway.app"
         />
       </head>
