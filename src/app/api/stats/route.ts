@@ -1,72 +1,29 @@
-import { getRedisClient, getRateLimitStatus } from "@/lib/redis";
+import { getRateLimitStatus } from "@/lib/redis";
 import {
   GLOBAL_RATE_LIMIT,
   STATS_API_RATE_LIMIT,
   STATS_API_WINDOW,
 } from "@/lib/constants";
+import {
+  checkApiRateLimit,
+  createRateLimitResponse,
+  getClientIp,
+} from "@/lib/api-rate-limiter";
 import { NextRequest, NextResponse } from "next/server";
-
-/**
- * Check rate limit for stats API endpoint
- * @param ip - Client IP address
- * @returns true if allowed, false if rate limited
- */
-async function checkStatsApiRateLimit(ip: string): Promise<boolean> {
-  const client = getRedisClient();
-  const key = `ewa:stats_api_rate_limit:${ip}`;
-
-  try {
-    const count = await client.incr(key);
-
-    // Set expiry on first request
-    if (count === 1) {
-      await client.expire(key, STATS_API_WINDOW);
-    }
-
-    return count <= STATS_API_RATE_LIMIT;
-  } catch (error) {
-    console.error("Stats API rate limit check failed:", error);
-    // Allow request if Redis fails
-    return true;
-  }
-}
-
-/**
- * Get client IP from request
- */
-function getClientIp(request: NextRequest): string {
-  // Try various headers for IP address (especially when behind proxies)
-  const forwarded = request.headers.get("x-forwarded-for");
-  const realIp = request.headers.get("x-real-ip");
-  const cfConnectingIp = request.headers.get("cf-connecting-ip");
-
-  if (forwarded) {
-    return forwarded.split(",")[0].trim();
-  }
-  if (realIp) {
-    return realIp;
-  }
-  if (cfConnectingIp) {
-    return cfConnectingIp;
-  }
-
-  return "unknown";
-}
 
 export async function GET(request: NextRequest) {
   try {
     const clientIp = getClientIp(request);
 
-    // Check stats API rate limit
-    const allowed = await checkStatsApiRateLimit(clientIp);
-    if (!allowed) {
-      return NextResponse.json(
-        {
-          error: "Rate limit exceeded",
-          message: `Too many requests. Limit: ${STATS_API_RATE_LIMIT} requests per minute.`,
-        },
-        { status: 429 }
-      );
+    // Check stats API rate limit using reusable utility
+    const rateLimitResult = await checkApiRateLimit(clientIp, {
+      limit: STATS_API_RATE_LIMIT,
+      window: STATS_API_WINDOW,
+      keyPrefix: "api:stats",
+    });
+
+    if (!rateLimitResult.allowed) {
+      return createRateLimitResponse(rateLimitResult);
     }
 
     // Pass empty string as userIp since we only need global stats
