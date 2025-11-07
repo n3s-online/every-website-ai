@@ -2,6 +2,7 @@ import { getRecentPages } from "@/lib/s3";
 import HomepageForm from "@/components/homepage-form";
 import RecentPages from "@/components/recent-pages";
 import SupportCreator from "@/components/support-creator";
+import DailyPagesCounter from "@/components/daily-pages-counter";
 
 // Revalidate every 10 minutes (600 seconds)
 export const revalidate = 600;
@@ -32,6 +33,11 @@ export default async function Home() {
           </div>
         </div>
       </header>
+
+      {/* Daily Stats Counter */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 pb-8">
+        <DailyPagesCounter />
+      </div>
 
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center px-4 sm:px-6 py-8 sm:py-12">
