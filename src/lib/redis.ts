@@ -1,5 +1,11 @@
 import { Redis } from "@upstash/redis";
 import { env } from "./env";
+import {
+  USER_RATE_LIMIT,
+  GLOBAL_RATE_LIMIT,
+  USER_WINDOW,
+  GLOBAL_WINDOW,
+} from "./constants";
 
 // Create Upstash Redis client
 let redis: Redis | null = null;
@@ -14,12 +20,6 @@ export function getRedisClient(): Redis {
 
   return redis;
 }
-
-// Rate limiting constants
-const USER_RATE_LIMIT = 3; // 3 pages per hour per user
-const GLOBAL_RATE_LIMIT = 100; // 100 pages per day globally
-const USER_WINDOW = 60 * 60; // 1 hour in seconds
-const GLOBAL_WINDOW = 24 * 60 * 60; // 24 hours in seconds
 
 /**
  * Lua script for atomic rate limit check-and-increment
