@@ -1,39 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-interface StatsData {
-  pagesGeneratedToday: number;
-  dailyLimit: number;
-  remainingPages: number;
-  resetTime: number | null;
-}
+import { useStats } from "@/hooks/use-stats";
 
 export default function DailyPagesCounter() {
-  const [stats, setStats] = useState<StatsData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { data: stats, isLoading, isError } = useStats();
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const response = await fetch("/api/stats");
-        const data = await response.json();
-        setStats(data);
-      } catch (error) {
-        console.error("Failed to fetch stats:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchStats();
-    // Refresh stats every 30 seconds
-    const interval = setInterval(fetchStats, 30000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200">
         <div className="animate-pulse">
@@ -44,7 +16,7 @@ export default function DailyPagesCounter() {
     );
   }
 
-  if (!stats) {
+  if (isError || !stats) {
     return null;
   }
 
