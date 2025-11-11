@@ -34,17 +34,17 @@ export default function HomepageForm() {
   return (
     <div className="max-w-2xl w-full space-y-6 sm:space-y-8">
       {/* Input Section */}
-      <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 border border-gray-100">
-        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+      <div className="bg-white border-4 border-black shadow-brutal-lg p-6 sm:p-8 lg:p-10">
+        <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
           <div>
             <label
               htmlFor="webpage-input"
-              className="block text-base sm:text-lg font-semibold text-gray-800 mb-3"
+              className="block text-lg sm:text-xl font-black uppercase text-black mb-4 tracking-tight"
             >
               Try it now - enter your prompt:
             </label>
-            <div className="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent transition-all">
-              <span className="pl-3 pr-1 text-gray-500 font-mono text-sm sm:text-base whitespace-nowrap">
+            <div className="flex items-center border-4 border-black focus-within:shadow-brutal transition-all bg-white">
+              <span className="pl-4 pr-2 text-black font-mono font-bold text-sm sm:text-base whitespace-nowrap">
                 everywebsite.ai/
               </span>
               <input
@@ -53,14 +53,14 @@ export default function HomepageForm() {
                 value={input}
                 onChange={(e) => setInput(e.target.value.replace(/\s+/g, "-"))}
                 placeholder="calculator"
-                className="flex-1 pr-4 py-3 text-sm sm:text-lg border-0 outline-none font-mono bg-transparent"
+                className="flex-1 pr-4 py-4 text-sm sm:text-lg border-0 outline-none font-mono font-bold bg-transparent text-black placeholder:text-gray-400"
                 disabled={isLoading}
               />
             </div>
           </div>
           <Button
             type="submit"
-            className="w-full py-3 text-base sm:text-lg font-semibold"
+            className="w-full py-4 text-lg sm:text-xl"
             disabled={!input.trim() || isLoading}
           >
             {isLoading ? "Generating..." : "Generate Webpage"}
@@ -70,15 +70,15 @@ export default function HomepageForm() {
 
       {/* Examples */}
       <div className="text-center">
-        <p className="text-gray-600 mb-4 text-sm sm:text-base">
-          Try these example URLs:
+        <p className="text-black font-bold mb-4 text-base sm:text-lg uppercase">
+          Try these examples:
         </p>
-        <div className="flex flex-wrap gap-2 justify-center px-2">
+        <div className="flex flex-wrap gap-3 justify-center px-2">
           {examples.map((example) => (
             <button
               key={example}
               onClick={() => setInput(example)}
-              className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-gray-100 hover:bg-gray-200 rounded-full transition-colors font-mono break-all"
+              className="px-3 sm:px-4 py-2 text-xs sm:text-sm bg-white border-2 border-black shadow-brutal-sm hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all font-mono font-bold break-all uppercase"
               disabled={isLoading}
             >
               /{example}
