@@ -31,24 +31,26 @@ export default function RateLimitExceeded({
   const isUserLimit = type === "user";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center p-4">
-      <div className="max-w-2xl w-full">
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-red-100">
-          {/* Icon and Title */}
-          <div className="text-center mb-8">
-            <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
-              {isUserLimit ? (
-                <Clock className="w-8 h-8 text-red-600" />
-              ) : (
-                <Globe className="w-8 h-8 text-red-600" />
-              )}
-            </div>
+    <div className="min-h-screen bg-red-400 flex items-center justify-center p-4">
+      <div className="max-w-2xl w-full space-y-8">
+        {/* Icon */}
+        <div className="w-24 h-24 mx-auto bg-white border-4 border-black shadow-brutal-lg flex items-center justify-center">
+          {isUserLimit ? (
+            <Clock className="w-14 h-14 text-black stroke-[3]" />
+          ) : (
+            <Globe className="w-14 h-14 text-black stroke-[3]" />
+          )}
+        </div>
 
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        {/* Main Card */}
+        <div className="bg-white border-4 border-black shadow-brutal-lg p-8">
+          {/* Title */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl sm:text-5xl font-black uppercase text-black mb-4 tracking-tight">
               {isUserLimit ? "Slow down there!" : "Server busy!"}
             </h1>
 
-            <p className="text-lg text-gray-600">
+            <p className="text-xl font-bold text-black">
               {isUserLimit
                 ? "You're generating pages too quickly. Take a breather!"
                 : "Too many people are generating pages right now."}
@@ -56,21 +58,21 @@ export default function RateLimitExceeded({
           </div>
 
           {/* Rate Limit Details */}
-          <div className="bg-red-50 rounded-lg p-6 mb-8 border border-red-200">
-            <div className="flex items-center justify-between">
+          <div className="bg-yellow-300 border-4 border-black shadow-brutal p-6 mb-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
-                <h3 className="font-semibold text-red-800 mb-1">
+                <h3 className="font-black uppercase text-black mb-2 text-lg">
                   {isUserLimit ? "Personal Rate Limit" : "Global Rate Limit"}
                 </h3>
-                <p className="text-red-700 text-sm">
+                <p className="font-bold text-black text-sm">
                   {isUserLimit
                     ? "You can generate 3 pages per hour"
                     : "We allow 100 new pages per day across all users"}
                 </p>
               </div>
-              <div className="text-right">
-                <p className="text-red-800 font-semibold">Reset in:</p>
-                <p className="text-red-600 text-lg font-mono">
+              <div className="bg-white border-4 border-black shadow-brutal px-6 py-4 text-center">
+                <p className="text-black font-black uppercase text-sm mb-1">Reset in:</p>
+                <p className="text-black text-2xl font-black font-mono">
                   {formatResetTime(resetTime)}
                 </p>
               </div>
@@ -79,22 +81,22 @@ export default function RateLimitExceeded({
 
           {/* What you can do */}
           <div className="mb-8">
-            <h3 className="font-semibold text-gray-800 mb-4">
+            <h3 className="font-black uppercase text-black mb-4 text-lg">
               What you can do:
             </h3>
-            <ul className="space-y-2 text-gray-600">
+            <ul className="space-y-3 font-bold text-black">
               <li className="flex items-start">
-                <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                <span className="w-3 h-3 bg-black border-2 border-black mt-1.5 mr-3 flex-shrink-0"></span>
                 Browse existing pages - no limits on viewing!
               </li>
               <li className="flex items-start">
-                <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                <span className="w-3 h-3 bg-black border-2 border-black mt-1.5 mr-3 flex-shrink-0"></span>
                 {isUserLimit
                   ? "Wait for your rate limit to reset"
                   : "Try again later when traffic is lower"}
               </li>
               <li className="flex items-start">
-                <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                <span className="w-3 h-3 bg-black border-2 border-black mt-1.5 mr-3 flex-shrink-0"></span>
                 Check out our other projects while you wait
               </li>
             </ul>
@@ -105,7 +107,7 @@ export default function RateLimitExceeded({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Button
                 asChild
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                className="w-full"
               >
                 <a
                   href="https://dothistask.ai"
@@ -113,15 +115,15 @@ export default function RateLimitExceeded({
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2"
                 >
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className="w-5 h-5 stroke-[3]" />
                   Check out DoThisTaskAI
                 </a>
               </Button>
 
               <Button
                 asChild
-                variant="outline"
-                className="w-full border-blue-200 text-blue-700 hover:bg-blue-50"
+                variant="secondary"
+                className="w-full"
               >
                 <a
                   href="https://x.com/N3SOnline"
@@ -129,7 +131,7 @@ export default function RateLimitExceeded({
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-5 h-5 stroke-[3]" />
                   Follow on X
                 </a>
               </Button>
@@ -138,7 +140,7 @@ export default function RateLimitExceeded({
             <Button
               asChild
               variant="ghost"
-              className="w-full text-gray-600 hover:text-gray-800"
+              className="w-full"
             >
               <Link href="/" className="flex items-center justify-center gap-2">
                 ← Back to Home
@@ -147,10 +149,10 @@ export default function RateLimitExceeded({
           </div>
 
           {/* Footer message */}
-          <div className="mt-8 pt-6 border-t border-gray-200 text-center">
-            <p className="text-sm text-gray-500">
+          <div className="mt-8 pt-8 border-t-4 border-black text-center">
+            <p className="text-sm font-black uppercase text-black">
               Rate limits help us keep the service free and fast for everyone.
-              Thanks for understanding! 🚀
+              Thanks for understanding!
             </p>
           </div>
         </div>
