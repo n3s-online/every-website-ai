@@ -2,10 +2,19 @@ export default function Loading() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-yellow-300">
       <div className="text-center space-y-8 p-8 max-w-2xl">
-        {/* Animated geometric loader */}
-        <div className="relative flex items-center justify-center">
-          <div className="w-24 h-24 border-8 border-black bg-white shadow-brutal-lg animate-spin"></div>
-          <div className="absolute w-16 h-16 bg-pink-400 border-4 border-black"></div>
+        {/* Animated geometric loader - Grid of pulsing squares */}
+        <div className="flex items-center justify-center gap-2">
+          <div className="grid grid-cols-3 gap-2">
+            <div className="w-6 h-6 bg-black border-2 border-black animate-pulse"></div>
+            <div className="w-6 h-6 bg-black border-2 border-black animate-pulse" style={{ animationDelay: "0.1s" }}></div>
+            <div className="w-6 h-6 bg-black border-2 border-black animate-pulse" style={{ animationDelay: "0.2s" }}></div>
+            <div className="w-6 h-6 bg-black border-2 border-black animate-pulse" style={{ animationDelay: "0.3s" }}></div>
+            <div className="w-6 h-6 bg-pink-400 border-2 border-black animate-pulse" style={{ animationDelay: "0.4s" }}></div>
+            <div className="w-6 h-6 bg-black border-2 border-black animate-pulse" style={{ animationDelay: "0.5s" }}></div>
+            <div className="w-6 h-6 bg-black border-2 border-black animate-pulse" style={{ animationDelay: "0.6s" }}></div>
+            <div className="w-6 h-6 bg-black border-2 border-black animate-pulse" style={{ animationDelay: "0.7s" }}></div>
+            <div className="w-6 h-6 bg-black border-2 border-black animate-pulse" style={{ animationDelay: "0.8s" }}></div>
+          </div>
         </div>
 
         {/* Loading card */}
