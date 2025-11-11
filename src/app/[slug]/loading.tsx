@@ -24,7 +24,7 @@ export default function Loading() {
           </h1>
           <p className="text-lg font-bold text-black max-w-md mx-auto">
             Our AI is crafting a custom webpage just for you. This usually takes
-            a few seconds.
+            about a minute.
           </p>
         </div>
 
