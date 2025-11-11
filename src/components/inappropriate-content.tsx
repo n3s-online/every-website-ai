@@ -4,12 +4,12 @@ import { Button } from "@/components/ui/button";
 
 export default function InappropriateContent() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-yellow-50 to-orange-100 p-8">
-      <div className="text-center space-y-6 max-w-md">
-        {/* Warning icon */}
-        <div className="w-16 h-16 mx-auto bg-yellow-100 rounded-full flex items-center justify-center">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-background p-8">
+      <div className="text-center space-y-6 max-w-md bg-card clay-shadow clay-rounded-lg p-8">
+        {/* Warning icon - clay coral for warning */}
+        <div className="w-16 h-16 mx-auto bg-clay-coral clay-shadow-sm clay-rounded-md flex items-center justify-center">
           <svg
-            className="w-8 h-8 text-yellow-600"
+            className="w-8 h-8 text-foreground"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -25,21 +25,21 @@ export default function InappropriateContent() {
 
         {/* Warning message */}
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold text-gray-800">
+          <h1 className="text-2xl font-bold text-foreground">
             Content Not Available
           </h1>
-          <p className="text-gray-600">
+          <p className="text-muted-foreground">
             This request cannot be processed as it may contain inappropriate
             content or violates our content policy.
           </p>
         </div>
 
         {/* Guidelines */}
-        <div className="bg-white/50 rounded-lg p-4 text-left">
-          <h3 className="font-semibold text-gray-800 mb-2">
+        <div className="bg-clay-sky/30 clay-shadow-sm clay-rounded-md p-4 text-left">
+          <h3 className="font-semibold text-foreground mb-2">
             Please try requests for:
           </h3>
-          <ul className="text-sm text-gray-600 space-y-1">
+          <ul className="text-sm text-muted-foreground space-y-1">
             <li>• Business websites</li>
             <li>• Portfolio pages</li>
             <li>• Landing pages</li>
@@ -68,15 +68,15 @@ export default function InappropriateContent() {
           </div>
 
           {/* Contact info */}
-          <div className="pt-4 border-t border-gray-200">
-            <p className="text-sm text-gray-500 mb-3">
+          <div className="pt-4 border-t border-border">
+            <p className="text-sm text-muted-foreground mb-3">
               Questions about our content policy?
             </p>
             <a
               href="https://twitter.com/n3sonline"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
+              className="inline-flex items-center gap-2 text-foreground font-medium hover:text-primary transition-colors bg-clay-sky/50 px-4 py-2 clay-rounded-sm clay-shadow-sm hover:clay-shadow"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -87,9 +87,9 @@ export default function InappropriateContent() {
         </div>
 
         {/* Powered by notice */}
-        <div className="mt-8 text-xs text-gray-500">
+        <div className="mt-8 text-xs text-muted-foreground">
           Powered by{" "}
-          <a href="https://dothistask.ai" className="underline">
+          <a href="https://dothistask.ai" className="underline hover:text-foreground transition-colors">
             dothistask.ai
           </a>
         </div>

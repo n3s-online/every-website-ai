@@ -4,12 +4,12 @@ import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-8">
-      <div className="text-center space-y-6 max-w-md">
-        {/* 404 icon */}
-        <div className="w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-background p-8">
+      <div className="text-center space-y-6 max-w-md bg-card clay-shadow clay-rounded-lg p-8">
+        {/* 404 icon - clay lavender for info */}
+        <div className="w-16 h-16 mx-auto bg-clay-lavender clay-shadow-sm clay-rounded-md flex items-center justify-center">
           <svg
-            className="w-8 h-8 text-gray-600"
+            className="w-8 h-8 text-foreground"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -25,12 +25,12 @@ export default function NotFound() {
 
         {/* Error message */}
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold text-gray-800">Page Not Found</h1>
-          <p className="text-gray-600">
+          <h1 className="text-2xl font-bold text-foreground">Page Not Found</h1>
+          <p className="text-muted-foreground">
             The page you&apos;re looking for doesn&apos;t exist or the slug
             contains invalid characters.
           </p>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-muted-foreground bg-clay-sky/30 px-3 py-2 clay-rounded-sm clay-shadow-sm inline-block">
             Try using only letters, numbers, hyphens, and underscores.
           </p>
         </div>
@@ -54,13 +54,13 @@ export default function NotFound() {
           </div>
 
           {/* Contact info */}
-          <div className="pt-4 border-t border-gray-200">
-            <p className="text-sm text-gray-500 mb-3">Need help? Reach out:</p>
+          <div className="pt-4 border-t border-border">
+            <p className="text-sm text-muted-foreground mb-3">Need help? Reach out:</p>
             <a
               href="https://twitter.com/n3sonline"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
+              className="inline-flex items-center gap-2 text-foreground font-medium hover:text-primary transition-colors bg-clay-sky/50 px-4 py-2 clay-rounded-sm clay-shadow-sm hover:clay-shadow"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -71,9 +71,9 @@ export default function NotFound() {
         </div>
 
         {/* Powered by notice */}
-        <div className="mt-8 text-xs text-gray-500">
+        <div className="mt-8 text-xs text-muted-foreground">
           Powered by{" "}
-          <a href="https://dothistask.ai" className="underline">
+          <a href="https://dothistask.ai" className="underline hover:text-foreground transition-colors">
             dothistask.ai
           </a>
         </div>

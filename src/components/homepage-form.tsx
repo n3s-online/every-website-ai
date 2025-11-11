@@ -34,17 +34,17 @@ export default function HomepageForm() {
   return (
     <div className="max-w-2xl w-full space-y-6 sm:space-y-8">
       {/* Input Section */}
-      <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 border border-gray-100">
+      <div className="bg-card clay-shadow clay-rounded-lg p-4 sm:p-6 lg:p-8">
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <div>
             <label
               htmlFor="webpage-input"
-              className="block text-base sm:text-lg font-semibold text-gray-800 mb-3"
+              className="block text-base sm:text-lg font-semibold text-foreground mb-3"
             >
               Try it now - enter your prompt:
             </label>
-            <div className="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent transition-all">
-              <span className="pl-3 pr-1 text-gray-500 font-mono text-sm sm:text-base whitespace-nowrap">
+            <div className="flex items-center clay-inset bg-input clay-rounded-md focus-within:ring-4 focus-within:ring-ring/20 transition-all">
+              <span className="pl-4 pr-1 text-muted-foreground font-mono text-sm sm:text-base whitespace-nowrap">
                 everywebsite.ai/
               </span>
               <input
@@ -53,7 +53,7 @@ export default function HomepageForm() {
                 value={input}
                 onChange={(e) => setInput(e.target.value.replace(/\s+/g, "-"))}
                 placeholder="calculator"
-                className="flex-1 pr-4 py-3 text-sm sm:text-lg border-0 outline-none font-mono bg-transparent"
+                className="flex-1 pr-4 py-3 text-sm sm:text-lg border-0 outline-none font-mono bg-transparent text-foreground placeholder:text-muted-foreground"
                 disabled={isLoading}
               />
             </div>
@@ -70,7 +70,7 @@ export default function HomepageForm() {
 
       {/* Examples */}
       <div className="text-center">
-        <p className="text-gray-600 mb-4 text-sm sm:text-base">
+        <p className="text-muted-foreground mb-4 text-sm sm:text-base font-medium">
           Try these example URLs:
         </p>
         <div className="flex flex-wrap gap-2 justify-center px-2">
@@ -78,7 +78,7 @@ export default function HomepageForm() {
             <button
               key={example}
               onClick={() => setInput(example)}
-              className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-gray-100 hover:bg-gray-200 rounded-full transition-colors font-mono break-all"
+              className="px-3 sm:px-4 py-1.5 text-xs sm:text-sm bg-clay-mint/60 hover:bg-clay-mint clay-shadow-sm hover:clay-shadow hover:scale-[1.02] active:scale-[0.98] clay-rounded-sm transition-all duration-200 font-mono break-all text-foreground font-medium disabled:opacity-50"
               disabled={isLoading}
             >
               /{example}
