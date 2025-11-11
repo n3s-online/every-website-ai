@@ -68,7 +68,7 @@ export class DiscordWebhook {
         },
         {
           name: "🌐 URL",
-          value: `[everywebsite.ai/${slug}](https://everywebsite.ai/${slug})`,
+          value: `[everywebsite.app/${slug}](https://everywebsite.app/${slug})`,
           inline: true,
         },
         {
@@ -102,7 +102,7 @@ export class DiscordWebhook {
         },
         {
           name: "🌐 URL",
-          value: `[everywebsite.ai/${slug}](https://everywebsite.ai/${slug})`,
+          value: `[everywebsite.app/${slug}](https://everywebsite.app/${slug})`,
           inline: true,
         },
         {
