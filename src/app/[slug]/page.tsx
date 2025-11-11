@@ -6,6 +6,7 @@ import { discord } from "@/lib/discord";
 import { notFound } from "next/navigation";
 import InappropriateContent from "@/components/inappropriate-content";
 import RateLimitExceeded from "@/components/rate-limit-exceeded";
+import HtmlRenderer from "@/components/html-renderer";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -88,13 +89,8 @@ export default async function SlugPage({ params }: PageProps) {
     return <InappropriateContent />;
   }
 
-  // Return the HTML content directly
-  return (
-    <div
-      dangerouslySetInnerHTML={{ __html: htmlContent }}
-      style={{ width: "100%", height: "100vh" }}
-    />
-  );
+  // Return the HTML content using the client component that handles script execution
+  return <HtmlRenderer html={htmlContent} />;
 }
 
 // Generate metadata for the page
