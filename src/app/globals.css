@@ -1,197 +1,71 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* Import rounded Google Fonts for Claymorphism */
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap');
-
 @custom-variant dark (&:is(.dark *));
 
-@theme inline {
-  /* Claymorphism Border Radius - More rounded for soft, clay-like appearance */
-  --radius-sm: 0.75rem; /* 12px */
-  --radius-md: 1.25rem; /* 20px */
-  --radius-lg: 2rem; /* 32px */
-  --radius-xl: 3rem; /* 48px */
+@theme {
+  /* Font families */
+  --font-family-sans: 'Fredoka', 'Nunito', ui-sans-serif, system-ui, sans-serif;
 
-  /* Theme Color Mappings */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
+  /* Border radius - Claymorphism style */
+  --radius-sm: 0.75rem;
+  --radius-md: 1.25rem;
+  --radius-lg: 2rem;
+  --radius-xl: 3rem;
 
-  /* Clay-specific colors */
-  --color-clay-peach: var(--clay-peach);
-  --color-clay-mint: var(--clay-mint);
-  --color-clay-lavender: var(--clay-lavender);
-  --color-clay-sky: var(--clay-sky);
-  --color-clay-coral: var(--clay-coral);
+  /* Light mode colors */
+  --color-background: oklch(0.98 0.01 50);
+  --color-foreground: oklch(0.4 0.04 40);
+  --color-card: oklch(0.96 0.015 45);
+  --color-card-foreground: oklch(0.4 0.04 40);
+  --color-popover: oklch(0.98 0.01 50);
+  --color-popover-foreground: oklch(0.4 0.04 40);
+  --color-primary: oklch(0.85 0.08 55);
+  --color-primary-foreground: oklch(0.4 0.04 40);
+  --color-secondary: oklch(0.82 0.08 310);
+  --color-secondary-foreground: oklch(0.4 0.04 40);
+  --color-muted: oklch(0.72 0.02 40);
+  --color-muted-foreground: oklch(0.5 0.03 40);
+  --color-accent: oklch(0.88 0.06 145);
+  --color-accent-foreground: oklch(0.4 0.04 40);
+  --color-destructive: oklch(0.75 0.12 35);
+  --color-border: oklch(0.88 0.02 45);
+  --color-input: oklch(0.94 0.015 45);
+  --color-ring: oklch(0.85 0.08 55);
 
-  /* Chart colors */
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-
-  /* Sidebar colors */
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+  /* Clay colors */
+  --color-clay-peach: oklch(0.85 0.08 55);
+  --color-clay-mint: oklch(0.88 0.06 145);
+  --color-clay-lavender: oklch(0.82 0.08 310);
+  --color-clay-sky: oklch(0.87 0.06 230);
+  --color-clay-coral: oklch(0.75 0.12 35);
 }
 
-/* Light Mode - Claymorphism Color Palette */
-:root {
-  /* Base colors - Warm, soft backgrounds */
-  --background: oklch(0.98 0.01 50); /* #FFF5F0 - Soft warm white */
-  --foreground: oklch(0.4 0.04 40); /* #5D4037 - Warm brown text */
+@theme dark {
+  --color-background: oklch(0.25 0.02 40);
+  --color-foreground: oklch(0.92 0.015 50);
+  --color-card: oklch(0.3 0.025 40);
+  --color-card-foreground: oklch(0.92 0.015 50);
+  --color-popover: oklch(0.3 0.025 40);
+  --color-popover-foreground: oklch(0.92 0.015 50);
+  --color-primary: oklch(0.68 0.06 50);
+  --color-primary-foreground: oklch(0.25 0.02 40);
+  --color-secondary: oklch(0.62 0.05 310);
+  --color-secondary-foreground: oklch(0.92 0.015 50);
+  --color-muted: oklch(0.58 0.02 40);
+  --color-muted-foreground: oklch(0.78 0.02 45);
+  --color-accent: oklch(0.65 0.04 145);
+  --color-accent-foreground: oklch(0.92 0.015 50);
+  --color-destructive: oklch(0.65 0.08 35);
+  --color-border: oklch(0.35 0.02 40);
+  --color-input: oklch(0.32 0.025 40);
+  --color-ring: oklch(0.68 0.06 50);
 
-  /* Card colors */
-  --card: oklch(0.96 0.015 45); /* Slightly darker than background */
-  --card-foreground: oklch(0.4 0.04 40);
-
-  /* Popover colors */
-  --popover: oklch(0.98 0.01 50);
-  --popover-foreground: oklch(0.4 0.04 40);
-
-  /* Primary - Peach clay */
-  --primary: oklch(0.85 0.08 55); /* #FFD4B8 - Peach */
-  --primary-foreground: oklch(0.4 0.04 40); /* Warm brown */
-
-  /* Secondary - Lavender clay */
-  --secondary: oklch(0.82 0.08 310); /* #E1BEE7 - Lavender */
-  --secondary-foreground: oklch(0.4 0.04 40);
-
-  /* Muted - Light brown */
-  --muted: oklch(0.72 0.02 40); /* #A1887F - Very light brown */
-  --muted-foreground: oklch(0.5 0.03 40); /* #8D6E63 - Light brown */
-
-  /* Accent - Mint clay */
-  --accent: oklch(0.88 0.06 145); /* #C8E6C9 - Mint */
-  --accent-foreground: oklch(0.4 0.04 40);
-
-  /* Destructive/Warning - Coral */
-  --destructive: oklch(0.75 0.12 35); /* #FFAB91 - Coral */
-
-  /* Border and input */
-  --border: oklch(0.88 0.02 45);
-  --input: oklch(0.94 0.015 45);
-  --ring: oklch(0.85 0.08 55); /* Primary color for focus rings */
-
-  /* Clay-specific colors */
-  --clay-peach: oklch(0.85 0.08 55); /* #FFD4B8 */
-  --clay-mint: oklch(0.88 0.06 145); /* #C8E6C9 */
-  --clay-lavender: oklch(0.82 0.08 310); /* #E1BEE7 */
-  --clay-sky: oklch(0.87 0.06 230); /* #B3E5FC */
-  --clay-coral: oklch(0.75 0.12 35); /* #FFAB91 */
-
-  /* Chart colors - Pastel versions */
-  --chart-1: oklch(0.85 0.08 55); /* Peach */
-  --chart-2: oklch(0.88 0.06 145); /* Mint */
-  --chart-3: oklch(0.82 0.08 310); /* Lavender */
-  --chart-4: oklch(0.87 0.06 230); /* Sky */
-  --chart-5: oklch(0.75 0.12 35); /* Coral */
-
-  /* Sidebar colors */
-  --sidebar: oklch(0.96 0.015 45);
-  --sidebar-foreground: oklch(0.4 0.04 40);
-  --sidebar-primary: oklch(0.85 0.08 55);
-  --sidebar-primary-foreground: oklch(0.4 0.04 40);
-  --sidebar-accent: oklch(0.88 0.06 145);
-  --sidebar-accent-foreground: oklch(0.4 0.04 40);
-  --sidebar-border: oklch(0.88 0.02 45);
-  --sidebar-ring: oklch(0.85 0.08 55);
-
-  /* Clay shadow variables for light mode */
-  --clay-shadow-outer: rgba(93, 64, 55, 0.15);
-  --clay-shadow-inner-light: rgba(255, 255, 255, 0.8);
-  --clay-shadow-inner-dark: rgba(93, 64, 55, 0.1);
-}
-
-/* Dark Mode - Claymorphism Color Palette */
-.dark {
-  /* Base colors - Dark warm backgrounds */
-  --background: oklch(0.25 0.02 40); /* #2C2416 - Dark warm brown */
-  --foreground: oklch(0.92 0.015 50); /* #F5E6D3 - Warm cream text */
-
-  /* Card colors */
-  --card: oklch(0.3 0.025 40); /* Slightly lighter than background */
-  --card-foreground: oklch(0.92 0.015 50);
-
-  /* Popover colors */
-  --popover: oklch(0.3 0.025 40);
-  --popover-foreground: oklch(0.92 0.015 50);
-
-  /* Primary - Muted peach */
-  --primary: oklch(0.68 0.06 50); /* #D4A574 - Muted warm */
-  --primary-foreground: oklch(0.25 0.02 40); /* Dark brown */
-
-  /* Secondary - Muted lavender */
-  --secondary: oklch(0.62 0.05 310); /* #B19CB8 - Muted purple */
-  --secondary-foreground: oklch(0.92 0.015 50);
-
-  /* Muted - Muted tan */
-  --muted: oklch(0.58 0.02 40); /* #B8A896 - Muted tan */
-  --muted-foreground: oklch(0.78 0.02 45); /* #D4C4B0 - Light tan */
-
-  /* Accent - Muted mint */
-  --accent: oklch(0.65 0.04 145); /* #8FAF8F - Muted green */
-  --accent-foreground: oklch(0.92 0.015 50);
-
-  /* Destructive - Muted coral */
-  --destructive: oklch(0.65 0.08 35); /* #D49380 - Muted coral */
-
-  /* Border and input */
-  --border: oklch(0.35 0.02 40);
-  --input: oklch(0.32 0.025 40);
-  --ring: oklch(0.68 0.06 50);
-
-  /* Clay-specific colors - muted versions */
-  --clay-peach: oklch(0.68 0.06 50);
-  --clay-mint: oklch(0.65 0.04 145);
-  --clay-lavender: oklch(0.62 0.05 310);
-  --clay-sky: oklch(0.62 0.04 230);
-  --clay-coral: oklch(0.65 0.08 35);
-
-  /* Chart colors - muted versions */
-  --chart-1: oklch(0.68 0.06 50);
-  --chart-2: oklch(0.65 0.04 145);
-  --chart-3: oklch(0.62 0.05 310);
-  --chart-4: oklch(0.62 0.04 230);
-  --chart-5: oklch(0.65 0.08 35);
-
-  /* Sidebar colors */
-  --sidebar: oklch(0.3 0.025 40);
-  --sidebar-foreground: oklch(0.92 0.015 50);
-  --sidebar-primary: oklch(0.68 0.06 50);
-  --sidebar-primary-foreground: oklch(0.92 0.015 50);
-  --sidebar-accent: oklch(0.65 0.04 145);
-  --sidebar-accent-foreground: oklch(0.92 0.015 50);
-  --sidebar-border: oklch(0.35 0.02 40);
-  --sidebar-ring: oklch(0.68 0.06 50);
-
-  /* Clay shadow variables for dark mode */
-  --clay-shadow-outer: rgba(0, 0, 0, 0.4);
-  --clay-shadow-inner-light: rgba(255, 255, 255, 0.1);
-  --clay-shadow-inner-dark: rgba(0, 0, 0, 0.3);
+  --color-clay-peach: oklch(0.68 0.06 50);
+  --color-clay-mint: oklch(0.65 0.04 145);
+  --color-clay-lavender: oklch(0.62 0.05 310);
+  --color-clay-sky: oklch(0.62 0.04 230);
+  --color-clay-coral: oklch(0.65 0.08 35);
 }
 
 @layer base {
@@ -205,7 +79,6 @@
     font-weight: 400;
   }
 
-  /* Heading styles with rounded fonts */
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Fredoka', 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
@@ -227,163 +100,154 @@
   }
 }
 
+/* Clay shadow utilities using custom properties */
 @layer utilities {
-  /* Claymorphism Shadow Utilities */
-
-  /* Default clay shadow - creates puffy, inflated appearance */
   .clay-shadow {
     box-shadow:
-      inset -4px -4px 8px var(--clay-shadow-inner-light),
-      inset 4px 4px 8px var(--clay-shadow-inner-dark),
-      8px 8px 16px var(--clay-shadow-outer),
-      -4px -4px 12px var(--clay-shadow-inner-light);
+      inset -4px -4px 8px rgba(255, 255, 255, 0.8),
+      inset 4px 4px 8px rgba(93, 64, 55, 0.1),
+      8px 8px 16px rgba(93, 64, 55, 0.15),
+      -4px -4px 12px rgba(255, 255, 255, 0.7);
   }
 
-  /* Enhanced clay shadow for hover states */
+  .dark .clay-shadow {
+    box-shadow:
+      inset -3px -3px 6px rgba(255, 255, 255, 0.1),
+      inset 3px 3px 6px rgba(0, 0, 0, 0.3),
+      8px 8px 16px rgba(0, 0, 0, 0.4),
+      -4px -4px 12px rgba(255, 255, 255, 0.05);
+  }
+
   .clay-shadow-hover {
     box-shadow:
-      inset -5px -5px 10px var(--clay-shadow-inner-light),
-      inset 5px 5px 10px var(--clay-shadow-inner-dark),
-      12px 12px 24px var(--clay-shadow-outer),
-      -6px -6px 16px var(--clay-shadow-inner-light);
+      inset -5px -5px 10px rgba(255, 255, 255, 0.9),
+      inset 5px 5px 10px rgba(93, 64, 55, 0.12),
+      12px 12px 24px rgba(93, 64, 55, 0.2),
+      -6px -6px 16px rgba(255, 255, 255, 0.8);
   }
 
-  /* Active/pressed clay shadow - appears pushed in */
+  .dark .clay-shadow-hover {
+    box-shadow:
+      inset -4px -4px 8px rgba(255, 255, 255, 0.12),
+      inset 4px 4px 8px rgba(0, 0, 0, 0.35),
+      12px 12px 24px rgba(0, 0, 0, 0.5),
+      -6px -6px 16px rgba(255, 255, 255, 0.07);
+  }
+
   .clay-shadow-active {
     box-shadow:
-      inset 4px 4px 8px var(--clay-shadow-inner-dark),
-      inset -2px -2px 6px var(--clay-shadow-inner-light),
-      2px 2px 4px var(--clay-shadow-outer);
+      inset 4px 4px 8px rgba(93, 64, 55, 0.2),
+      inset -2px -2px 6px rgba(255, 255, 255, 0.5),
+      2px 2px 4px rgba(93, 64, 55, 0.1);
   }
 
-  /* Small clay shadow for subtle elements */
+  .dark .clay-shadow-active {
+    box-shadow:
+      inset 4px 4px 8px rgba(0, 0, 0, 0.4),
+      inset -2px -2px 6px rgba(255, 255, 255, 0.08),
+      2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
   .clay-shadow-sm {
     box-shadow:
-      inset -2px -2px 4px var(--clay-shadow-inner-light),
-      inset 2px 2px 4px var(--clay-shadow-inner-dark),
-      4px 4px 8px var(--clay-shadow-outer),
-      -2px -2px 6px var(--clay-shadow-inner-light);
+      inset -2px -2px 4px rgba(255, 255, 255, 0.8),
+      inset 2px 2px 4px rgba(93, 64, 55, 0.1),
+      4px 4px 8px rgba(93, 64, 55, 0.12),
+      -2px -2px 6px rgba(255, 255, 255, 0.6);
   }
 
-  /* Large clay shadow for prominent elements */
+  .dark .clay-shadow-sm {
+    box-shadow:
+      inset -2px -2px 4px rgba(255, 255, 255, 0.08),
+      inset 2px 2px 4px rgba(0, 0, 0, 0.25),
+      4px 4px 8px rgba(0, 0, 0, 0.35),
+      -2px -2px 6px rgba(255, 255, 255, 0.04);
+  }
+
   .clay-shadow-lg {
     box-shadow:
-      inset -6px -6px 12px var(--clay-shadow-inner-light),
-      inset 6px 6px 12px var(--clay-shadow-inner-dark),
-      16px 16px 32px var(--clay-shadow-outer),
-      -8px -8px 20px var(--clay-shadow-inner-light);
+      inset -6px -6px 12px rgba(255, 255, 255, 0.8),
+      inset 6px 6px 12px rgba(93, 64, 55, 0.1),
+      16px 16px 32px rgba(93, 64, 55, 0.15),
+      -8px -8px 20px rgba(255, 255, 255, 0.7);
   }
 
-  /* Inset clay shadow for input fields - appears recessed */
+  .dark .clay-shadow-lg {
+    box-shadow:
+      inset -6px -6px 12px rgba(255, 255, 255, 0.1),
+      inset 6px 6px 12px rgba(0, 0, 0, 0.3),
+      16px 16px 32px rgba(0, 0, 0, 0.4),
+      -8px -8px 20px rgba(255, 255, 255, 0.05);
+  }
+
   .clay-inset {
     box-shadow:
-      inset 4px 4px 8px var(--clay-shadow-inner-dark),
-      inset -2px -2px 6px var(--clay-shadow-inner-light);
+      inset 4px 4px 8px rgba(93, 64, 55, 0.15),
+      inset -2px -2px 6px rgba(255, 255, 255, 0.7);
   }
 
-  /* Clay border radius utilities */
+  .dark .clay-inset {
+    box-shadow:
+      inset 4px 4px 8px rgba(0, 0, 0, 0.35),
+      inset -2px -2px 6px rgba(255, 255, 255, 0.08);
+  }
+
   .clay-rounded-sm {
-    border-radius: 0.75rem; /* 12px */
+    border-radius: 0.75rem;
   }
 
   .clay-rounded-md {
-    border-radius: 1.25rem; /* 20px */
+    border-radius: 1.25rem;
   }
 
   .clay-rounded-lg {
-    border-radius: 2rem; /* 32px */
+    border-radius: 2rem;
   }
 
   .clay-rounded-xl {
-    border-radius: 3rem; /* 48px */
+    border-radius: 3rem;
   }
 
-  /* Clay color utilities */
   .bg-clay-peach {
-    background-color: var(--clay-peach);
+    background-color: oklch(0.85 0.08 55);
+  }
+
+  .dark .bg-clay-peach {
+    background-color: oklch(0.68 0.06 50);
   }
 
   .bg-clay-mint {
-    background-color: var(--clay-mint);
+    background-color: oklch(0.88 0.06 145);
+  }
+
+  .dark .bg-clay-mint {
+    background-color: oklch(0.65 0.04 145);
   }
 
   .bg-clay-lavender {
-    background-color: var(--clay-lavender);
+    background-color: oklch(0.82 0.08 310);
+  }
+
+  .dark .bg-clay-lavender {
+    background-color: oklch(0.62 0.05 310);
   }
 
   .bg-clay-sky {
-    background-color: var(--clay-sky);
+    background-color: oklch(0.87 0.06 230);
+  }
+
+  .dark .bg-clay-sky {
+    background-color: oklch(0.62 0.04 230);
   }
 
   .bg-clay-coral {
-    background-color: var(--clay-coral);
+    background-color: oklch(0.75 0.12 35);
   }
 
-  .text-clay-peach {
-    color: var(--clay-peach);
-  }
-
-  .text-clay-mint {
-    color: var(--clay-mint);
-  }
-
-  .text-clay-lavender {
-    color: var(--clay-lavender);
-  }
-
-  .text-clay-sky {
-    color: var(--clay-sky);
-  }
-
-  .text-clay-coral {
-    color: var(--clay-coral);
-  }
-
-  /* Clay interaction utilities */
-  .clay-interactive {
-    @apply clay-shadow transition-all duration-200 ease-out;
-  }
-
-  .clay-interactive:hover {
-    @apply clay-shadow-hover scale-[1.02];
-  }
-
-  .clay-interactive:active {
-    @apply clay-shadow-active scale-[0.98];
-  }
-
-  /* Respect reduced motion preference */
-  @media (prefers-reduced-motion: reduce) {
-    .clay-interactive,
-    .clay-interactive:hover,
-    .clay-interactive:active {
-      @apply scale-100;
-      transition: box-shadow 200ms ease-out, opacity 200ms ease-out;
-    }
-  }
-
-  /* Clay button base */
-  .clay-button {
-    @apply clay-rounded-md px-6 py-3 font-medium clay-interactive;
-  }
-
-  /* Clay card base */
-  .clay-card {
-    @apply clay-rounded-lg p-8 clay-shadow;
-    transition: all 200ms ease-out;
-  }
-
-  .clay-card:hover {
-    @apply clay-shadow-hover -translate-y-0.5;
-  }
-
-  /* Clay input base */
-  .clay-input {
-    @apply clay-rounded-md px-4 py-3 clay-inset bg-input text-foreground;
-    transition: all 200ms ease-out;
-  }
-
-  .clay-input:focus {
-    @apply outline-none ring-4 ring-ring/20 clay-shadow-sm;
+  .dark .bg-clay-coral {
+    background-color: oklch(0.65 0.08 35);
   }
 }
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap');
