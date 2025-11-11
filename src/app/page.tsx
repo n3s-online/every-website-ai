@@ -107,6 +107,16 @@ export default async function Home() {
           >
             @n3sonline
           </a>
+          <span className="hidden sm:inline">{" • "}</span>
+          <span>
+            built by{" "}
+            <a
+              href="https://willness.dev"
+              className="underline hover:text-gray-700"
+            >
+              willness.dev
+            </a>
+          </span>
         </p>
       </footer>
     </div>
