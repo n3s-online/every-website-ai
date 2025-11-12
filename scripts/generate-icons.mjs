@@ -2,6 +2,7 @@ import sharp from 'sharp';
 import { readFileSync, writeFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import pngToIco from 'png-to-ico';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -61,18 +62,25 @@ async function generateIcons() {
     console.log('✓ Generated favicon.svg');
 
     // Generate ICO file (combining 16x16, 32x32, and 48x48)
+    const favicon16Buffer = await sharp(svgBuffer)
+      .resize(16, 16)
+      .png()
+      .toBuffer();
+
+    const favicon32Buffer = await sharp(svgBuffer)
+      .resize(32, 32)
+      .png()
+      .toBuffer();
+
     const favicon48Buffer = await sharp(svgBuffer)
       .resize(48, 48)
       .png()
       .toBuffer();
 
-    // For ICO, we'll just use a 32x32 PNG as favicon.ico
-    // (proper multi-resolution ICO would require a specialized library)
-    await sharp(svgBuffer)
-      .resize(32, 32)
-      .png()
-      .toFile(join(publicDir, 'favicon.ico'));
-    console.log('✓ Generated favicon.ico');
+    // Generate proper multi-resolution ICO file
+    const icoBuffer = await pngToIco([favicon16Buffer, favicon32Buffer, favicon48Buffer]);
+    writeFileSync(join(publicDir, 'favicon.ico'), icoBuffer);
+    console.log('✓ Generated favicon.ico (multi-resolution ICO)');
 
     console.log('\n✅ All icon files generated successfully!');
   } catch (error) {
