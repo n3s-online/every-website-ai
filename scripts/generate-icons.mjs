@@ -82,6 +82,11 @@ async function generateIcons() {
     writeFileSync(join(publicDir, 'favicon.ico'), icoBuffer);
     console.log('✓ Generated favicon.ico (multi-resolution ICO)');
 
+    // Also copy to src/app/favicon.ico (Next.js App Router uses this)
+    const appDir = join(__dirname, '../src/app');
+    writeFileSync(join(appDir, 'favicon.ico'), icoBuffer);
+    console.log('✓ Generated src/app/favicon.ico');
+
     console.log('\n✅ All icon files generated successfully!');
   } catch (error) {
     console.error('Error generating icons:', error);
