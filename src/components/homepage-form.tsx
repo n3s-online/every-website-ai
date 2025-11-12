@@ -45,7 +45,7 @@ export default function HomepageForm() {
             </label>
             <div className="flex items-center border-4 border-black focus-within:shadow-brutal transition-all bg-white">
               <span className="pl-4 pr-2 text-black font-mono font-bold text-sm sm:text-base whitespace-nowrap">
-                everywebsite.ai/
+                everywebsite.app/
               </span>
               <input
                 id="webpage-input"

@@ -24,7 +24,7 @@ export default async function Home() {
           </p>
           <div className="mt-6 p-4 sm:p-6 bg-pink-400 border-4 border-black shadow-brutal max-w-xl mx-auto">
             <p className="text-white font-mono font-bold text-sm sm:text-base lg:text-lg break-all">
-              everywebsite.ai/
+              everywebsite.app/
               <span className="bg-white text-black px-2 sm:px-3 py-1 border-2 border-black">
                 your-prompt-here
               </span>
@@ -56,7 +56,7 @@ export default async function Home() {
                 Change the URL
               </h3>
               <p className="text-white font-bold text-sm sm:text-base px-2">
-                Add your prompt to the URL: everywebsite.ai/your-idea
+                Add your prompt to the URL: everywebsite.app/your-idea
               </p>
             </div>
             <div className="text-center bg-pink-400 border-4 border-black shadow-brutal p-6">
