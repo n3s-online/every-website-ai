@@ -64,7 +64,7 @@ The webpage should be production-ready and look professional.`;
 export async function generateWebpageHtml(slug: string): Promise<string> {
   try {
     const { text } = await generateText({
-      model: anthropic("claude-3-5-haiku-20241022"),
+      model: anthropic("claude-haiku-4-5"),
       system: SYSTEM_PROMPT,
       prompt: `Generate a complete HTML webpage that solves this purpose: "${slug}"
 
