@@ -59,12 +59,12 @@ OUTPUT FORMAT:
 The webpage should be production-ready and look professional.`;
 
 /**
- * Generate HTML content using Claude Sonnet 4
+ * Generate HTML content using Claude Haiku 3.5
  */
 export async function generateWebpageHtml(slug: string): Promise<string> {
   try {
     const { text } = await generateText({
-      model: anthropic("claude-sonnet-4-5"),
+      model: anthropic("claude-haiku-4-5"),
       system: SYSTEM_PROMPT,
       prompt: `Generate a complete HTML webpage that solves this purpose: "${slug}"
 
