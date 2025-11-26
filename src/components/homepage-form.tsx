@@ -55,6 +55,7 @@ export default function HomepageForm() {
                 placeholder="calculator"
                 className="flex-1 pr-4 py-4 text-sm sm:text-lg border-0 outline-none font-mono font-bold bg-transparent text-black placeholder:text-gray-400"
                 disabled={isLoading}
+                autoComplete="off"
               />
             </div>
           </div>
