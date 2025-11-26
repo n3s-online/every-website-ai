@@ -18,8 +18,8 @@ export const revalidate = 86400;
 export default async function SlugPage({ params }: PageProps) {
   const { slug } = await params;
 
-  // Validate slug (basic sanitization)
-  if (!slug || slug.length > 100 || !/^[a-zA-Z0-9\-_\s]+$/.test(slug)) {
+  // Validate slug (basic sanitization - allow any length, just validate characters)
+  if (!slug || !/^[a-zA-Z0-9\-_\s]+$/.test(slug)) {
     notFound();
   }
 
@@ -97,10 +97,14 @@ export default async function SlugPage({ params }: PageProps) {
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
 
+  // Truncate slug for display in title/description (keep first 100 chars)
+  const displaySlug = slug.length > 100 ? `${slug.substring(0, 100)}...` : slug;
+  const titleSlug = displaySlug
+    .replace(/[-_]/g, " ")
+    .replace(/\b\w/g, (l) => l.toUpperCase());
+
   return {
-    title: `${slug
-      .replace(/[-_]/g, " ")
-      .replace(/\b\w/g, (l) => l.toUpperCase())} | Every Website AI`,
-    description: `AI-generated webpage for: ${slug}`,
+    title: `${titleSlug} | Every Website AI`,
+    description: `AI-generated webpage for: ${displaySlug}`,
   };
 }
