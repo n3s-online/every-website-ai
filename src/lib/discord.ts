@@ -1,5 +1,18 @@
 import { env } from "./env";
 
+// Discord embed field values have a 1024 char limit
+const MAX_SLUG_DISPLAY_LENGTH = 100;
+
+/**
+ * Truncate a slug for display in Discord embeds
+ */
+function truncateSlug(slug: string): string {
+  if (slug.length <= MAX_SLUG_DISPLAY_LENGTH) {
+    return slug;
+  }
+  return `${slug.substring(0, MAX_SLUG_DISPLAY_LENGTH)}...`;
+}
+
 export interface DiscordEmbed {
   title?: string;
   description?: string;
@@ -56,19 +69,20 @@ export class DiscordWebhook {
    * Send a notification when a page is generated
    */
   async notifyPageGenerated(slug: string, userIP: string): Promise<boolean> {
+    const displaySlug = truncateSlug(slug);
     const embed: DiscordEmbed = {
       title: "🚀 New Page Generated",
-      description: `A new webpage has been generated!`,
+      description: `A new webpage has been generated!${slug.length > MAX_SLUG_DISPLAY_LENGTH ? ` (slug: ${slug.length} chars)` : ""}`,
       color: 0x00ff00, // Green
       fields: [
         {
           name: "📄 Page",
-          value: `\`${slug}\``,
+          value: `\`${displaySlug}\``,
           inline: true,
         },
         {
           name: "🌐 URL",
-          value: `[everywebsite.app/${slug}](https://everywebsite.app/${slug})`,
+          value: `[everywebsite.app/${displaySlug}](https://everywebsite.app/${encodeURIComponent(slug)})`,
           inline: true,
         },
         {
@@ -90,19 +104,20 @@ export class DiscordWebhook {
    * Send a notification when a page is loaded from cache
    */
   async notifyPageLoaded(slug: string, userIP: string): Promise<boolean> {
+    const displaySlug = truncateSlug(slug);
     const embed: DiscordEmbed = {
       title: "📖 Page Loaded",
-      description: `An existing webpage was loaded from cache.`,
+      description: `An existing webpage was loaded from cache.${slug.length > MAX_SLUG_DISPLAY_LENGTH ? ` (slug: ${slug.length} chars)` : ""}`,
       color: 0x0099ff, // Blue
       fields: [
         {
           name: "📄 Page",
-          value: `\`${slug}\``,
+          value: `\`${displaySlug}\``,
           inline: true,
         },
         {
           name: "🌐 URL",
-          value: `[everywebsite.app/${slug}](https://everywebsite.app/${slug})`,
+          value: `[everywebsite.app/${displaySlug}](https://everywebsite.app/${encodeURIComponent(slug)})`,
           inline: true,
         },
         {
@@ -128,14 +143,15 @@ export class DiscordWebhook {
     userIP: string,
     error: string
   ): Promise<boolean> {
+    const displaySlug = truncateSlug(slug);
     const embed: DiscordEmbed = {
       title: "❌ Error Occurred",
-      description: `An error occurred while processing a request.`,
+      description: `An error occurred while processing a request.${slug.length > MAX_SLUG_DISPLAY_LENGTH ? ` (slug: ${slug.length} chars)` : ""}`,
       color: 0xff0000, // Red
       fields: [
         {
           name: "📄 Page",
-          value: `\`${slug}\``,
+          value: `\`${displaySlug}\``,
           inline: true,
         },
         {
