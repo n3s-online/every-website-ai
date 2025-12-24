@@ -224,3 +224,310 @@
     border-color: white;
   }
 }
+
+/* ========================================
+   DESIGN STYLE 1: Clean Minimalism with Bold Typography
+   ======================================== */
+.style-minimalism {
+  /* Minimalist Color Palette - Light Mode */
+  --radius: 0.5rem; /* Rounded corners */
+
+  --background: oklch(0.99 0 0); /* Off-white */
+  --foreground: oklch(0.15 0 0); /* Dark gray, not pure black */
+  --card: oklch(1 0 0); /* Pure white cards */
+  --card-foreground: oklch(0.15 0 0);
+
+  /* Primary: Subtle dark gray */
+  --primary: oklch(0.2 0 0);
+  --primary-foreground: oklch(1 0 0);
+
+  /* Secondary: Light gray */
+  --secondary: oklch(0.95 0 0);
+  --secondary-foreground: oklch(0.15 0 0);
+
+  /* Muted: Very light gray */
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.5 0 0);
+
+  /* Accent: Medium gray for emphasis */
+  --accent: oklch(0.3 0 0);
+  --accent-foreground: oklch(1 0 0);
+
+  /* Destructive: Subtle red */
+  --destructive: oklch(0.55 0.22 25);
+
+  /* Borders: Very subtle */
+  --border: oklch(0.9 0 0);
+  --input: oklch(0.85 0 0);
+  --ring: oklch(0.2 0 0);
+}
+
+.style-minimalism.dark {
+  --background: oklch(0.12 0 0); /* Dark background */
+  --foreground: oklch(0.95 0 0); /* Light gray text */
+  --card: oklch(0.15 0 0);
+  --card-foreground: oklch(0.95 0 0);
+
+  --border: oklch(0.25 0 0);
+  --input: oklch(0.3 0 0);
+}
+
+@layer utilities {
+  /* Minimalism Shadow Utilities - Subtle with blur */
+  .style-minimalism .shadow-brutal-sm,
+  .style-minimalism .shadow-brutal,
+  .style-minimalism .shadow-brutal-md,
+  .style-minimalism .shadow-brutal-lg,
+  .style-minimalism .shadow-brutal-xl {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  .style-minimalism .shadow-brutal-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .style-minimalism .shadow-brutal-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .style-minimalism .shadow-brutal-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .style-minimalism.dark .shadow-brutal-sm,
+  .style-minimalism.dark .shadow-brutal,
+  .style-minimalism.dark .shadow-brutal-md,
+  .style-minimalism.dark .shadow-brutal-lg,
+  .style-minimalism.dark .shadow-brutal-xl {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  /* Minimalism border utilities - thin and subtle */
+  .style-minimalism .border-brutal,
+  .style-minimalism .border-4 {
+    border-width: 1px;
+    border-color: var(--border);
+  }
+}
+
+/* ========================================
+   DESIGN STYLE 2: Modern Flat Design with Vibrant Colors
+   ======================================== */
+.style-flat {
+  /* Flat Design Color Palette */
+  --radius: 0.375rem; /* Slightly rounded */
+
+  --background: oklch(0.25 0.02 265); /* Dark blue-gray background */
+  --foreground: oklch(0.95 0 0); /* Light text */
+  --card: oklch(0.3 0.02 265); /* Slightly lighter cards */
+  --card-foreground: oklch(0.95 0 0);
+
+  /* Primary: Vibrant Green */
+  --primary: oklch(0.65 0.19 145);
+  --primary-foreground: oklch(0.98 0 0);
+
+  /* Secondary: Vibrant Red */
+  --secondary: oklch(0.62 0.24 25);
+  --secondary-foreground: oklch(0.98 0 0);
+
+  /* Muted: Dark gray */
+  --muted: oklch(0.35 0.01 265);
+  --muted-foreground: oklch(0.65 0 0);
+
+  /* Accent: Light Blue */
+  --accent: oklch(0.7 0.13 240);
+  --accent-foreground: oklch(0.98 0 0);
+
+  /* Destructive: Bright Red */
+  --destructive: oklch(0.62 0.24 25);
+
+  /* Borders: Subtle, same as background */
+  --border: oklch(0.35 0.02 265);
+  --input: oklch(0.35 0.02 265);
+  --ring: oklch(0.7 0.13 240);
+}
+
+.style-flat.dark {
+  --background: oklch(0.15 0.02 265);
+  --foreground: oklch(0.95 0 0);
+  --card: oklch(0.2 0.02 265);
+
+  --border: oklch(0.25 0.02 265);
+  --input: oklch(0.25 0.02 265);
+}
+
+@layer utilities {
+  /* Flat Design - NO shadows */
+  .style-flat .shadow-brutal-sm,
+  .style-flat .shadow-brutal,
+  .style-flat .shadow-brutal-md,
+  .style-flat .shadow-brutal-lg,
+  .style-flat .shadow-brutal-xl,
+  .style-flat.dark .shadow-brutal-sm,
+  .style-flat.dark .shadow-brutal,
+  .style-flat.dark .shadow-brutal-md,
+  .style-flat.dark .shadow-brutal-lg,
+  .style-flat.dark .shadow-brutal-xl {
+    box-shadow: none;
+  }
+
+  /* Flat border utilities - no visible borders on most elements */
+  .style-flat .border-brutal,
+  .style-flat .border-4 {
+    border-width: 0px;
+  }
+
+  /* Hover states for flat design - slight brightness change */
+  .style-flat .hover\:shadow-brutal-sm:hover,
+  .style-flat .hover\:shadow-brutal:hover {
+    box-shadow: none;
+    filter: brightness(1.1);
+  }
+}
+
+/* ========================================
+   DESIGN STYLE 3: Bento Grid Layouts
+   ======================================== */
+.style-bento {
+  /* Bento Grid Color Palette */
+  --radius: 0.75rem; /* More rounded for modern feel */
+
+  --background: oklch(0.97 0 0); /* Very light gray */
+  --foreground: oklch(0.15 0 0); /* Dark text */
+  --card: oklch(1 0 0); /* White cards/tiles */
+  --card-foreground: oklch(0.15 0 0);
+
+  /* Primary: Deep Blue */
+  --primary: oklch(0.45 0.14 255);
+  --primary-foreground: oklch(0.98 0 0);
+
+  /* Secondary: Purple */
+  --secondary: oklch(0.55 0.18 295);
+  --secondary-foreground: oklch(0.98 0 0);
+
+  /* Muted: Light gray */
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.45 0 0);
+
+  /* Accent: Teal */
+  --accent: oklch(0.6 0.13 195);
+  --accent-foreground: oklch(0.98 0 0);
+
+  /* Destructive: Orange-Red */
+  --destructive: oklch(0.6 0.22 35);
+
+  /* Borders: Very subtle */
+  --border: oklch(0.92 0 0);
+  --input: oklch(0.9 0 0);
+  --ring: oklch(0.45 0.14 255);
+
+  /* Bento-specific colors for varied tiles */
+  --bento-tile-1: oklch(0.95 0.05 255); /* Light blue */
+  --bento-tile-2: oklch(0.95 0.05 145); /* Light green */
+  --bento-tile-3: oklch(0.95 0.05 35); /* Light orange */
+  --bento-tile-4: oklch(0.95 0.05 295); /* Light purple */
+}
+
+.style-bento.dark {
+  --background: oklch(0.1 0 0); /* Very dark */
+  --foreground: oklch(0.95 0 0);
+  --card: oklch(0.15 0 0); /* Dark tiles */
+  --card-foreground: oklch(0.95 0 0);
+
+  --border: oklch(0.2 0 0);
+  --input: oklch(0.2 0 0);
+
+  --bento-tile-1: oklch(0.2 0.05 255);
+  --bento-tile-2: oklch(0.2 0.05 145);
+  --bento-tile-3: oklch(0.2 0.05 35);
+  --bento-tile-4: oklch(0.2 0.05 295);
+}
+
+@layer utilities {
+  /* Bento Grid Shadow Utilities - Medium soft shadows */
+  .style-bento .shadow-brutal-sm,
+  .style-bento .shadow-brutal {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  .style-bento .shadow-brutal-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .style-bento .shadow-brutal-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .style-bento .shadow-brutal-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .style-bento.dark .shadow-brutal-sm,
+  .style-bento.dark .shadow-brutal,
+  .style-bento.dark .shadow-brutal-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+
+  .style-bento.dark .shadow-brutal-lg,
+  .style-bento.dark .shadow-brutal-xl {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Bento border utilities - subtle 1px borders */
+  .style-bento .border-brutal,
+  .style-bento .border-4 {
+    border-width: 1px;
+    border-color: var(--border);
+  }
+
+  /* Bento Grid Layout Utilities */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .bento-tile {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transition: all 0.2s ease;
+  }
+
+  .bento-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Bento tile size variations */
+  .bento-tile-large {
+    grid-column: span 2;
+  }
+
+  .bento-tile-tall {
+    grid-row: span 2;
+  }
+
+  .bento-tile-feature {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  /* Bento tile color variations */
+  .bento-tile-1 {
+    background: var(--bento-tile-1);
+  }
+
+  .bento-tile-2 {
+    background: var(--bento-tile-2);
+  }
+
+  .bento-tile-3 {
+    background: var(--bento-tile-3);
+  }
+
+  .bento-tile-4 {
+    background: var(--bento-tile-4);
+  }
+}
